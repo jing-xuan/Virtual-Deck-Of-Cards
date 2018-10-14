@@ -6,5 +6,5 @@ Felt like playing a round of bridge but none of your friends are around you?
 
 Fear no more, as the virtual deck of cards is here! Simply create or sign into a deck, and play any game with anyone.
 
-#Future work
+# Future work
 Aim to make it mobile friendly, as well as fix some bugs on the front end
