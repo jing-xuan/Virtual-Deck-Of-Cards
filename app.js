@@ -13,7 +13,7 @@ app.get('/connectroom/', function(req, res){
 io.on('connection', function(socket) {
    socket.on('connectRoom', function(room){
      socket.join(room);
-     io.sockets.in(room).emit('connectToRoom', 'Deck ' + room + ' There are ' + io.sockets.adapter.rooms[room].length + ' people here');
+     io.sockets.in(room).emit('connectToRoom', 'Players: ' + io.sockets.adapter.rooms[room].length);
    })
 
    socket.on('getDeck', function(data){
@@ -23,6 +23,7 @@ io.on('connection', function(socket) {
 
    socket.on('takeCards', function(data){
      cards = takeCards(data[0]['numCards'], data[0]['deck'], data[0]['mycards']);
+     console.log(cards);
      io.to(data[0]['user']).emit('getCards', cards['mycards']);
      io.sockets.in(data[0]['room']).emit('giveDeck', cards['deck']);
    })
@@ -40,8 +41,8 @@ io.on('connection', function(socket) {
    socket.on('moveCard', function(data){
      console.log(data);
      data['pile'][data['pileIndex']].push(data['card']);
-     console.log(data['pile']);
-     io.sockets.in(data['room']).emit('movedCard', data['pile']);
+     console.log(data['card']);
+     io.sockets.in(data['room']).emit('movedCard', {"pile" : data['pile'], "card" : data['card']});
    })
 });
 
